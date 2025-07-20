@@ -1,0 +1,387 @@
+/* Добавляем рукописный шрифт Caveat */
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap');
+
+/* Существующий шрифт Poppins */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+	font-family: "Poppins", sans-serif;
+}
+
+body {
+    display: grid;
+    place-content: center;
+    height: 100vh;
+    width: 100vw;
+    background: linear-gradient(to bottom, #0b0c10, #1c2833, #3a3a52);
+    overflow: hidden;
+}
+
+.flipbook {
+    max-height: 90vh; /* Уменьшили высоту с 90vh до 80vh */
+    aspect-ratio: 5 / 6;
+    max-width: 90vw; /* Также немного уменьшили максимальную ширину */
+    box-shadow: 0 0 20px #00DFFF, 0 0 35px #00DFFF;
+    z-index: 10;
+}
+
+.flipbook .hard {
+    background: none !important;
+}
+
+/* --- ИЗМЕНЕНИЕ: Возвращаем светлый "лунный" цвет страниц --- */
+.flipbook .page,
+.flipbook > div {
+    background: #EAEFF2;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+    gap: 10px;
+    border: 1px solid #d0d5d8;
+}
+
+.page img {
+	width: 80%;
+	object-fit: cover;
+	margin: auto;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 223, 255, 0.7), 0 0 20px rgba(0, 223, 255, 0.5);
+}
+
+.flipbook > div:nth-child(3) small {
+	font-size: 16px;
+    font-weight: 600;
+    color: #00DFFF;
+    text-shadow: 0 0 5px rgba(0, 223, 255, 0.8);
+}
+
+.flipbook .page img + small {
+	font-size: 14px;
+    margin-bottom: 10px;
+    font-weight: 600;
+    color: #3D4852;
+    text-shadow: none;
+}
+
+@media (max-width: 480px) {
+  .flipbook > div:nth-child(3) small {
+    font-size: 14px;
+  }
+  .flipbook .page img + small {
+    font-size: 12px;
+  }
+}
+
+/* --- ВОЗВРАЩАЕМ АНИМАЦИЮ ЗВЁЗД (версия с крупными звездами) --- */
+
+@keyframes animateStars {
+  from {
+    transform: translateY(0px);
+  }
+  to {
+    transform: translateY(-2000px);
+  }
+}
+
+#stars, #stars2, #stars3 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  animation: animateStars 150s linear infinite;
+  z-index: 0;
+}
+
+#stars2 {
+  animation-duration: 100s;
+}
+
+#stars3 {
+  animation-duration: 50s;
+}
+
+/* Слой 1: Самые маленькие и многочисленные звезды (2px) */
+#stars {
+  width: 2px;
+  height: 2px;
+  box-shadow: 7vw 1184vh #FFF, 9vw 132vh #FFF, 22vw 1421vh #FFF, 62vw 124vh #FFF, 91vw 1230vh #FFF, 93vw 374vh #FFF, 55vw 122vh #FFF, 73vw 124vh #FFF, 89vw 1656vh #FFF, 8vw 135vh #FFF, 5vw 476vh #FFF, 2vw 1558vh #FFF, 32vw 1845vh #FFF, 79vw 103vh #FFF, 47vw 174vh #FFF, 3vw 1205vh #FFF, 15vw 173vh #FFF, 59vw 1782vh #FFF, 54vw 616vh #FFF, 56vw 1195vh #FFF, 1vw 1269vh #FFF, 54vw 1651vh #FFF, 93vw 1152vh #FFF, 15vw 888vh #FFF, 34vw 721vh #FFF, 82vw 1945vh #FFF, 40vw 1321vh #FFF, 9vw 100vh #FFF, 91vw 345vh #FFF, 43vw 987vh #FFF, 23vw 1456vh #FFF, 76vw 567vh #FFF, 65vw 1234vh #FFF, 12vw 834vh #FFF, 52vw 123vh #FFF, 8vw 1812vh #FFF, 45vw 1543vh #FFF, 98vw 1200vh #FFF, 77vw 1111vh #FFF;
+}
+
+/* Слой 2: Средние звезды (3px) */
+#stars2 {
+  width: 3px;
+  height: 3px;
+  box-shadow: 9vw 73vh #FFF, 84vw 119vh #FFF, 99vw 84vh #FFF, 3vw 11vh #FFF, 34vw 14vh #FFF, 2vw 29vh #FFF, 54vw 86vh #FFF, 67vw 8vh #FFF, 57vw 3vh #FFF, 94vw 9vh #FFF, 4vw 63vh #FFF, 14vw 46vh #FFF, 41vw 96vh #FFF, 86vw 113vh #FFF, 3vw 130vh #FFF, 75vw 189vh #FFF, 23vw 45vh #FFF, 91vw 134vh #FFF, 49vw 198vh #FFF;
+}
+
+/* Слой 3: Самые большие и яркие звезды (4px) */
+#stars3 {
+  width: 4px;
+  height: 4px;
+  box-shadow: 16vw 110vh #FFF, 5vw 80vh #FFF, 80vw 40vh #FFF, 48vw 2vh #FFF, 8vw 130vh #FFF, 66vw 143vh #FFF, 95vw 87vh #FFF;
+}
+
+
+/* --- НОВЫЕ СТИЛИ ДЛЯ РАЗНЫХ МАКЕТОВ СТРАНИЦ --- */
+
+/* Убираем внутренние отступы у базовых страниц, чтобы макеты управляли ими сами */
+.flipbook .page,
+.flipbook > div {
+    padding: 0;
+    gap: 0;
+}
+
+
+/* --- Вариант 1: Картинка на весь лист --- */
+.page-full-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #000 !important;
+}
+
+.page-full-image img {
+    width: 90%; /* Ширина будет 90% от страницы */
+    height: 90%; /* Высота будет 90% от страницы */
+    object-fit: contain; /* ВАЖНО: Гарантирует, что вся картинка видна без обрезки */
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 223, 255, 0.7), 0 0 20px rgba(0, 223, 255, 0.5);
+}
+
+
+/* --- Вариант 2: Текст сверху, фото снизу (ОБНОВЛЕНО с контейнером) --- */
+.page-text-top {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    gap: 20px; /* Немного увеличим отступ для баланса */
+}
+
+/* Стили для рукописного текста */
+.page-text-top .subtitle,
+.page-text-top h1 { /* Заголовку тоже можно задать ширину для выравнивания */
+    width: 80%; /* Задаем ширину, чтобы текст не был слишком растянут */
+    text-align: center;
+}
+
+.page-text-top h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 26px;
+    font-weight: 600;
+    color: #3D4852;
+    text-shadow: none;
+    margin-bottom: -10px; /* Слегка придвинем основной текст к заголовку */
+}
+
+.page-text-top .subtitle {
+    font-family: 'Caveat', cursive;
+    font-size: 20px;
+    line-height: 1.25;
+    color: #4a5568;
+    font-weight: 400;
+    padding: 10px 0; /* Добавим немного отступов по бокам */
+}
+
+/* --- НОВЫЙ БЛОК: Контейнер для картинки --- */
+.page-text-top .image-container {
+    width: 80%; /* Задаем фиксированную ширину для рамки */
+    aspect-ratio: 4 / 3; /* Задаем пропорции (4:3), как у классического фото */
+    
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 223, 255, 0.7), 0 0 20px rgba(0, 223, 255, 0.5);
+    overflow: hidden; /* Важно, чтобы картинка не вылезала за пределы рамки */
+}
+
+/* --- ОБНОВЛЕНО: Стили для самой картинки внутри контейнера --- */
+.page-text-top .image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Магия здесь! Растягивает картинку, сохраняя пропорции и обрезая лишнее */
+}
+
+/* --- Вариант 3: Фото сверху, текст снизу (ОБНОВЛЕНО с заголовком) --- */
+.page-text-bottom {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 15px; /* Отступ между элементами */
+    padding: 20px;
+}
+.page-text-bottom img {
+    width: 70%;
+    object-fit: cover;
+    margin: 0;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 223, 255, 0.7), 0 0 20px rgba(0, 223, 255, 0.5);
+}
+
+/* --- НОВЫЙ СТИЛЬ: для заголовка <h1> --- */
+.page-text-bottom h1 {
+    font-family: 'Poppins', sans-serif; /* Используем стандартный, чистый шрифт */
+    font-size: 26px; /* Делаем заголовок крупным */
+    font-weight: 600;
+    color: #3D4852;
+    margin-top: 5px; /* Небольшой отступ сверху */
+    text-shadow: none;
+}
+
+/* --- НОВЫЙ СТИЛЬ: для текста в <span class="subtitle"> --- */
+.page-text-bottom .subtitle {
+    display: block; /* Важно, чтобы <span/> мог принять ширину */
+    width: 70%; /* Выравниваем по ширине картинки */
+    font-family: 'Caveat', cursive; /* Применяем рукописный шрифт */
+    font-size: 20px;
+    line-height: 1.25;
+    text-align: center;
+    color: #4a5568; /* Чуть более светлый серый для основного текста */
+    font-weight: 400;
+}
+
+/* --- Вариант 4: Три фото по диагонали --- */
+.page-diagonal-photos {
+    position: relative; /* Важно для позиционирования дочерних элементов */
+    overflow: hidden;
+}
+
+.page-diagonal-photos img {
+    position: absolute; /* Позволяет размещать фото где угодно */
+    width: 55%; /* Размер каждого фото */
+    height: auto;
+    border: 5px solid white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+/* Первое фото (верхнее правое) */
+.page-diagonal-photos img:nth-child(1) {
+    top: 5%;
+    right: 5%;
+    transform: rotate(10deg);
+}
+/* Второе фото (центральное) */
+.page-diagonal-photos img:nth-child(2) {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-5deg); /* Идеальное центрирование и наклон */
+    z-index: 2; /* Это фото будет поверх других */
+}
+/* Третье фото (нижнее левое) */
+.page-diagonal-photos img:nth-child(3) {
+    bottom: 5%;
+    left: 5%;
+    transform: rotate(8deg);
+}
+
+/* --- Горизонтальное размещение двух фото в одной строке */
+.image-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+.image-row img {
+    width: 45%;
+    height: auto;
+    object-fit: cover;
+}
+
+/* --- Общие классы для оптимизации --- */
+.img-shadow {
+    box-shadow: 0 0 10px rgba(0, 223, 255, 0.7), 0 0 20px rgba(0, 223, 255, 0.5);
+}
+.rounded {
+    border-radius: 5px;
+}
+.flex-center-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.subtitle {
+    font-family: 'Caveat', cursive;
+    font-size: 20px;
+    line-height: 1.25;
+    color: #4a5568;
+    font-weight: 400;
+    text-align: center;
+}
+.main-title {
+    font-family: 'Poppins', sans-serif !important;
+    padding-bottom: 5px !important;
+    font-size: 26px !important;
+    font-weight: 600 !important;
+    color: #3D4852 !important;
+    text-shadow: none !important;
+    text-align: center !important;
+    width: 80% !important;
+    margin-bottom: -10px !important;
+    margin-top: 10px !important; /* Добавляем отступ сверху для лучшего выравнивания */
+}
+
+/* Стили для таймера отсчёта */
+#countdown {
+    font-family: 'Poppins', sans-serif !important;
+    font-size: 22px !important;
+    font-weight: 600 !important;
+    color: #00DFFF !important;
+    background: transparent !important;
+    border-radius: 8px !important;
+    padding: 12px 18px !important;
+    margin: 10px 0 !important;
+    box-shadow: 0 0 10px rgba(0,223,255,0.2) !important;
+    text-align: center !important;
+    letter-spacing: 1px !important;
+    transition: background 0.3s !important;
+    width: auto !important;
+    display: inline-block !important;
+    border: none !important;
+}
+
+.gif {
+    width: 64px !important;
+    height: 64px !important;
+    object-fit: cover;
+    border: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+}
+
+/* Анимация движения бабочки */
+@keyframes butterfly-fly {
+    0%   { left: 0; top: 0; }
+    25%  { left: 60%; top: 10%; }
+    50%  { left: 80%; top: 60%; }
+    75%  { left: 30%; top: 80%; }
+    100% { left: 0; top: 0; }
+}
+
+.butterfly-container {
+    position: relative;
+    width: 100%;
+    height: 120px;
+    min-height: 64px;
+}
+
+.gif.butterfly {
+    position: absolute;
+    left: 0;
+    top: 0;
+    animation: butterfly-fly 6s linear infinite;
+    z-index: 2;
+}
+
+/* --- НОВЫЙ СТИЛЬ: Фоновое изображение для .image-container.with-bg --- */
+.image-container.with-bg {
+    position: relative;
+    background: url('images/bg1.png') center center/cover no-repeat;
+    border: none !important;
+}
+
