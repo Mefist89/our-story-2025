@@ -74,6 +74,23 @@ body {
   .flipbook .page img + small {
     font-size: 12px;
   }
+    .flipbook {
+        max-height: 85vh; 
+        max-width: 85vw; 
+    }
+    .image-container.with-bg {
+    width: 95% !important;
+    aspect-ratio: 5 / 3;
+    min-width: 0;
+    min-height: 0;
+    padding: 0;
+    height: 40% !important; /* увеличенная высота только на мобильных */
+  }
+  #countdown {
+    font-size: 14px !important;
+    padding: 8px 10px !important;
+    
+  }
 }
 
 /* --- ВОЗВРАЩАЕМ АНИМАЦИЮ ЗВЁЗД (версия с крупными звездами) --- */
@@ -193,7 +210,6 @@ body {
 .page-text-top .image-container {
     width: 80%; /* Задаем фиксированную ширину для рамки */
     aspect-ratio: 4 / 3; /* Задаем пропорции (4:3), как у классического фото */
-    
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 223, 255, 0.7), 0 0 20px rgba(0, 223, 255, 0.5);
     overflow: hidden; /* Важно, чтобы картинка не вылезала за пределы рамки */
@@ -329,7 +345,7 @@ body {
 /* Стили для таймера отсчёта */
 #countdown {
     font-family: 'Poppins', sans-serif !important;
-    font-size: 22px !important;
+    font-size: 20px !important;
     font-weight: 600 !important;
     color: #00DFFF !important;
     background: transparent !important;

@@ -4,6 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="style.css" />
   <title>Our Story 2025</title>
 </head>
@@ -132,7 +133,7 @@
         </div>
     </div>
 
-        <!-- ВАРИАНТ 3: Фото сверху, текст снизу -->
+    <!-- ВАРИАНТ 3: Фото сверху, текст снизу -->
     <div class="page-text-bottom flex-center-col" >
       <img src="images/p17.png" alt="Pikachu" class="img-shadow rounded">
       <h1 class="main-title">Благодарность</h1>
@@ -142,14 +143,14 @@
           Я счастлив, что ты вошла в мою жизнь.</span>
     </div>
 
-        <!-- ВАРИАНТ 2: Текст сверху, фото снизу -->
+    <!-- ВАРИАНТ 2: Текст сверху, фото снизу -->
     <div class="page-text-top flex-center-col">
         <h1 class="main-title">Прошлое и настоящее</h1>
         <span class="subtitle">Сколько всего мы уже прошли... <br/>
           А ведь началось всё с игры.<br/>
           Сегодня 6 месяцев.<br/>
           И я бы прошёл это всё сначала если бы знал, что найду тебя.</span>
-        <div class="image-container img-shadow rounded with-bg">
+        <div class="image-container img-shadow rounded with-bg" style="width:100%;">
           <div id="countdown" class="main-title"></div>
           <div class="butterfly-container">
             <img src="images/b1.webp" alt="Pikachu" class="img gif butterfly">
@@ -172,7 +173,18 @@
       <img src="images/p16.png" alt="Pikachu" class="img-shadow rounded">
       <h1 class="main-title">Самый важный человек</h1>
       <span class="subtitle">Ты стала частью моей души.<br/>
-          С тобой я могу быть настоящим.</span>
+          С тобой я могу быть настоящим.<br/>
+          Ты причина моеи улыбки :)</span>
+    </div>
+
+    <!-- ВАРИАНТ 3: Фото сверху, текст снизу -->
+    <div class="page-text-bottom flex-center-col" >
+      <img src="images/p17.png" alt="Pikachu" class="img-shadow rounded">
+      <h1 class="main-title">Благодарность</h1>
+      <span class="subtitle">Спасибо тебе.<br/>
+          За каждое доброе утро.<br/>
+          За поддержку. За то, что ты есть.<br/>
+          Я счастлив, что ты вошла в мою жизнь.</span>
     </div>
 
     <!-- ВАРИАНТ 1: Только картинка на весь лист -->  
@@ -221,21 +233,22 @@
       });
     });
 
-    // Таймер: сколько времени прошло с 20.01.2025 по Москве (UTC+3)
+    // Таймер: сколько времени прошло с 20.01.2025 по местному времени пользователя
     function updateCountdown() {
-      // Москва: UTC+3
-      const target = new Date(Date.UTC(2025, 0, 20, 0, 0, 0)); // Январь = 0
       const now = new Date();
-      // Текущее время в Москве
-      const nowMoscow = new Date(now.getTime() + (now.getTimezoneOffset() + -180) * 60000);
-      let diff = nowMoscow - target;
+      // Форматируем текущее местное время пользователя
+      const localTimeStr = now.toLocaleString('ru-RU', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+      // Целевая дата в UTC
+      const target = new Date(Date.UTC(2025, 0, 20, 0, 0, 0));
+      // Разница между местным временем пользователя и целевой датой
+      let diff = now - target;
       if (diff < 0) diff = 0;
       const days = Math.floor(diff / (1000 * 60 * 60 * 24));
       const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
       const minutes = Math.floor((diff / (1000 * 60)) % 60);
       const seconds = Math.floor((diff / 1000) % 60);
       document.getElementById('countdown').textContent =
-        `С 20.01.2025 прошло: ${days} дней ${hours} ч ${minutes} мин ${seconds} сек (МСК)`;
+        `С 20.01.2025 прошло: ${days} дней ${hours} ч ${minutes} мин ${seconds} сек (местное время: ${localTimeStr})`;
     }
     setInterval(updateCountdown, 1000);
     updateCountdown();
