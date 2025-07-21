@@ -376,7 +376,7 @@
     const minutes = Math.floor((diff / (1000 * 60)) % 60);
     const seconds = Math.floor((diff / 1000) % 60);
     document.getElementById('countdown').textContent =
-      `С 20.01.2025 прошло: ${days} дней ${hours} ч ${minutes} мин ${seconds} сек (местное время: ${localTimeStr})`;
+      `С 20.01.2025 прошло: ${days} дней ${hours} ч ${minutes} мин ${seconds} сек)`;
   }
   setInterval(updateCountdown, 1000);
   updateCountdown();

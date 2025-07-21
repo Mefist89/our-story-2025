@@ -84,12 +84,11 @@ body {
     min-width: 0;
     min-height: 0;
     padding: 0;
-    height: 40% !important; /* увеличенная высота только на мобильных */
+    height: 45% !important; /* увеличенная высота только на мобильных */
   }
   #countdown {
     font-size: 14px !important;
     padding: 8px 10px !important;
-    
   }
 }
 
@@ -190,7 +189,7 @@ body {
 
 .page-text-top h1 {
     font-family: 'Poppins', sans-serif;
-    font-size: 26px;
+    font-size: 24px;
     font-weight: 600;
     color: #3D4852;
     text-shadow: none;
@@ -199,7 +198,7 @@ body {
 
 .page-text-top .subtitle {
     font-family: 'Caveat', cursive;
-    font-size: 20px;
+    font-size: 18px;
     line-height: 1.25;
     color: #4a5568;
     font-weight: 400;
@@ -454,7 +453,7 @@ body {
 
 #typewriter-text, #typewriter-text2 { /* ИЗМЕНЕНО: Добавлен #typewriter-text2 */
   font-family: 'Caveat', cursive !important;
-  font-size: 2rem;
+  font-size: 1.8rem;
   color: #4a5568;
   white-space: pre-wrap;
   display: block;
@@ -482,10 +481,10 @@ body {
 /* Медиа-запрос для мобильных устройств */
 @media (max-width: 480px) {
   #typewriter-text, #typewriter-text2 { /* ИЗМЕНЕНО */
-    font-size: 1.6rem;
+    font-size: 1.3rem;
   }
   #typewriter-cursor, #typewriter-cursor2 { /* ИЗМЕНЕНО */
-    height: 1.7rem;
+    height: 1.5rem;
   }
 }
 
