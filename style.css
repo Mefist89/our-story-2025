@@ -401,3 +401,80 @@ body {
     border: none !important;
 }
 
+/* --- НОВЫЕ СТИЛИ ДЛЯ КЛАССА .page-auto --- */
+.page-auto .main-title {
+    font-size: 32px !important;
+}
+.page-auto .subtitle {
+    font-size: 24px !important;
+}
+
+/* --- НОВЫЙ СТИЛЬ: Убираем фон у .page-text-bottom для вложенного .page-auto --- */
+.page-text-bottom.page-auto,
+.page-text-bottom.page-auto.flex-center-col {
+    background: transparent !important;
+    border: none !important;
+    overflow: visible !important;
+    padding: 0 !important;
+}
+
+.page-auto {
+    background: linear-gradient(135deg, #7815a9cc 0%, #e0f7fa99 100%);
+    border-radius: 12px;
+    box-shadow: 0 4px 24px rgba(0,223,255,0.10);
+    padding: 32px 0 !important;
+    position: relative;
+    background-clip: padding-box;
+    z-index: 1;
+    min-height: 220px;
+    width: 100%;
+    isolation: isolate;
+}
+
+/* --- СТИЛИ ДЛЯ РЕАЛИСТИЧНОЙ ПИШУЩЕЙ МАШИНКИ --- */
+
+.typewriter-container {
+  position: relative; /* Обязательно для абсолютного позиционирования курсора */
+  width: 90%;
+  min-height: 150px; /* Задаем минимальную высоту, чтобы было место для текста */
+}
+
+#typewriter-text {
+  /* Стили для самого текста */
+  font-family: 'Caveat', cursive !important;
+  font-size: 1.5rem;
+  color: #4a5568;
+  white-space: pre-wrap;
+  display: block; /* Текст теперь блочный элемент */
+  text-align: center; /* Центрируем текст внутри контейнера */
+}
+
+#typewriter-cursor {
+  /* Стили для абсолютно спозиционированного курсора */
+  position: absolute; /* Позиционируем относительно .typewriter-container */
+  display: inline-block;
+  width: 3px;
+  height: 1.6rem; /* Высота, чуть больше шрифта */
+  background-color: #00DFFF;
+  animation: blink 0.75s step-end infinite;
+  /* Начальное положение скрыто, скрипт его задаст */
+  left: -9999px; 
+  top: 0;
+  transition: left 0.05s, top 0.05s; /* Плавное перемещение курсора */
+}
+
+/* Анимация мигания */
+@keyframes blink {
+  from, to { background-color: transparent; }
+  50% { background-color: #00DFFF; }
+}
+
+/* Медиа-запрос для мобильных устройств */
+@media (max-width: 480px) {
+  #typewriter-text {
+    font-size: 1.2rem;
+  }
+  #typewriter-cursor {
+    height: 1.3rem;
+  }
+}
