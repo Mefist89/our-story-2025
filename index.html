@@ -10,6 +10,19 @@
 </head>
 
 <body>
+<!-- 1. Аудиоплеер (он будет невидимым) -->
+  <audio id="background-music" loop autoplay muted>
+    <source src="audio.mp3" type="audio/mpeg">
+    Ваш браузер не поддерживает аудио.
+  </audio>
+
+  <!-- 2. Кнопка для управления звуком -->
+  <div id="music-toggle">
+    <!-- Иконка "звук выключен" (видна по умолчанию) -->
+    <svg class="icon-off" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28" fill="white"><path d="M3 9v6h4l5 5V4L7 9H3zm13.59 3L15 10.41 16.41 9 18 10.59 19.59 9 21 10.41 19.41 12 21 13.59 19.59 15 18 13.41 16.41 15 15 13.59z"/></svg>
+    <!-- Иконка "звук включен" (скрыта по умолчанию) -->
+    <svg class="icon-on" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28" fill="white" style="display:none;"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+  </div>
 
   <div id="stars"></div>
   <div id="stars2"></div>
@@ -204,6 +217,63 @@
   <script>
     $(document).ready(function() {
     const flipbook = $('.flipbook');
+
+    function enableAudioOnFirstInteraction() {
+    const audio = document.getElementById('background-music');
+    const musicToggle = document.getElementById('music-toggle');
+    const iconOn = musicToggle.querySelector('.icon-on');
+    const iconOff = musicToggle.querySelector('.icon-off');
+
+    // Если музыка уже включена, ничего не делаем
+    if (!audio.muted) {
+      document.body.removeEventListener('click', enableAudioOnFirstInteraction);
+      document.body.removeEventListener('touchstart', enableAudioOnFirstInteraction);
+      return;
+    }
+    
+    musicToggle.addEventListener('click', function() {
+      if (audio.muted) {
+        // Если звук был выключен (muted), то мы его ВКЛЮЧАЕМ
+        audio.muted = false;
+        iconOn.style.display = 'block';
+        iconOff.style.display = 'none';
+      } else {
+        // Выключаем звук
+        audio.muted = true;
+        iconOn.style.display = 'none';
+        iconOff.style.display = 'block';
+      }
+    });
+    // =======================================================
+
+    // Флаги, чтобы каждая анимация запустилась только один раз
+    let typewriter1Started = false;
+    let typewriter2Started = false;
+
+    // Пытаемся включить звук
+    audio.muted = false;
+    let promise = audio.play();
+
+    if (promise !== undefined) {
+      promise.then(_ => {
+        // Звук успешно включен
+        iconOn.style.display = 'block';
+        iconOff.style.display = 'none';
+        // Удаляем слушатели, чтобы они не срабатывали повторно
+        document.body.removeEventListener('click', enableAudioOnFirstInteraction);
+        document.body.removeEventListener('touchstart', enableAudioOnFirstInteraction);
+      }).catch(error => {
+        // Если что-то пошло не так, возвращаем в исходное состояние
+        console.error("Audio play was interrupted.", error);
+        audio.muted = true;
+      });
+    }
+  }
+
+  // Добавляем слушатели на первое взаимодействие
+  document.body.addEventListener('click', enableAudioOnFirstInteraction);
+  document.body.addEventListener('touchstart', enableAudioOnFirstInteraction); // для мобильных
+
     // Флаги, чтобы каждая анимация запустилась только один раз
     let typewriter1Started = false;
     let typewriter2Started = false;
@@ -251,9 +321,6 @@
       }
     });
   });
-
-  // Функция для анимации пишущей машинки
-  // --- Замените старую функцию startTypewriter на эту ---
 
 // --- Функция для ПЕРВОЙ пишущей машинки ---
   function startTypewriter1() {

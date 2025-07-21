@@ -488,3 +488,25 @@ body {
     height: 1.7rem;
   }
 }
+
+
+#music-toggle {
+  position: fixed; /* Чтобы кнопка оставалась на месте */
+  top: 20px;
+  right: 20px;
+  z-index: 100; /* Поверх всех элементов */
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 50%; /* Делаем ее круглой */
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0 10px rgba(0, 223, 255, 0.5);
+  transition: transform 0.2s ease;
+}
+
+#music-toggle:hover {
+  transform: scale(1.1);
+}
