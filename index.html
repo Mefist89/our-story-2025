@@ -30,14 +30,15 @@
 
   <div class="flipbook">
 
-    <!-- ВАРИАНТ 1: Только картинка на весь лист -->  
+    <!-- ВАРИАНТ 1: Только картинка на весь лист -->
     <div class="page-full-image flex-center-col">
       <img src="images/p1.png" alt="Full page Charmandar" class="img-shadow rounded border-black" style="width:90%;height:95%;object-fit:cover;">
     </div>
 
-    <!-- ВАРИАНТ 1: Только картинка на весь лист -->  
+    <!-- ВАРИАНТ 1: Только картинка на весь лист -->
     <div class="page-full-image flex-center-col">
-      <video autoplay muted loop playsinline class="img-shadow rounded border-black" style="width:90%;height:95%;object-fit:cover;">
+      <!-- *** ИЗМЕНЕНИЕ 1: Добавлен id="page-video" *** -->
+      <video id="page-video" autoplay muted loop playsinline class="img-shadow rounded border-black" style="width:90%;height:95%;object-fit:cover;">
         <source src="images/bsky.mp4" type="video/mp4">
         Your browser does not support the video tag.
       </video>
@@ -217,66 +218,60 @@
   <script>
     $(document).ready(function() {
     const flipbook = $('.flipbook');
+    // Флаги, чтобы каждая анимация запустилась только один раз
+    let typewriter1Started = false;
+    let typewriter2Started = false;
 
     function enableAudioOnFirstInteraction() {
-    const audio = document.getElementById('background-music');
-    const musicToggle = document.getElementById('music-toggle');
-    const iconOn = musicToggle.querySelector('.icon-on');
-    const iconOff = musicToggle.querySelector('.icon-off');
+      const audio = document.getElementById('background-music');
+      const musicToggle = document.getElementById('music-toggle');
+      const iconOn = musicToggle.querySelector('.icon-on');
+      const iconOff = musicToggle.querySelector('.icon-off');
 
-    // Если музыка уже включена, ничего не делаем
-    if (!audio.muted) {
-      document.body.removeEventListener('click', enableAudioOnFirstInteraction);
-      document.body.removeEventListener('touchstart', enableAudioOnFirstInteraction);
-      return;
-    }
-    
-    musicToggle.addEventListener('click', function() {
-      if (audio.muted) {
-        // Если звук был выключен (muted), то мы его ВКЛЮЧАЕМ
-        audio.muted = false;
-        iconOn.style.display = 'block';
-        iconOff.style.display = 'none';
-      } else {
-        // Выключаем звук
-        audio.muted = true;
-        iconOn.style.display = 'none';
-        iconOff.style.display = 'block';
-      }
-    });
-    // =======================================================
-
-    // Флаги, чтобы каждая анимация запустилась только один раз
-    let typewriter1Started = false;
-    let typewriter2Started = false;
-
-    // Пытаемся включить звук
-    audio.muted = false;
-    let promise = audio.play();
-
-    if (promise !== undefined) {
-      promise.then(_ => {
-        // Звук успешно включен
-        iconOn.style.display = 'block';
-        iconOff.style.display = 'none';
-        // Удаляем слушатели, чтобы они не срабатывали повторно
+      // Если музыка уже включена, ничего не делаем
+      if (!audio.muted) {
         document.body.removeEventListener('click', enableAudioOnFirstInteraction);
         document.body.removeEventListener('touchstart', enableAudioOnFirstInteraction);
-      }).catch(error => {
-        // Если что-то пошло не так, возвращаем в исходное состояние
-        console.error("Audio play was interrupted.", error);
-        audio.muted = true;
+        return;
+      }
+      
+      musicToggle.addEventListener('click', function() {
+        if (audio.muted) {
+          // Если звук был выключен (muted), то мы его ВКЛЮЧАЕМ
+          audio.muted = false;
+          iconOn.style.display = 'block';
+          iconOff.style.display = 'none';
+        } else {
+          // Выключаем звук
+          audio.muted = true;
+          iconOn.style.display = 'none';
+          iconOff.style.display = 'block';
+        }
       });
+
+      // Пытаемся включить звук
+      audio.muted = false;
+      let promise = audio.play();
+
+      if (promise !== undefined) {
+        promise.then(_ => {
+          // Звук успешно включен
+          iconOn.style.display = 'block';
+          iconOff.style.display = 'none';
+          // Удаляем слушатели, чтобы они не срабатывали повторно
+          document.body.removeEventListener('click', enableAudioOnFirstInteraction);
+          document.body.removeEventListener('touchstart', enableAudioOnFirstInteraction);
+        }).catch(error => {
+          // Если что-то пошло не так, возвращаем в исходное состояние
+          console.error("Audio play was interrupted.", error);
+          audio.muted = true;
+        });
+      }
     }
-  }
 
-  // Добавляем слушатели на первое взаимодействие
-  document.body.addEventListener('click', enableAudioOnFirstInteraction);
-  document.body.addEventListener('touchstart', enableAudioOnFirstInteraction); // для мобильных
-
-    // Флаги, чтобы каждая анимация запустилась только один раз
-    let typewriter1Started = false;
-    let typewriter2Started = false;
+    // Добавляем слушатели на первое взаимодействие
+    document.body.addEventListener('click', enableAudioOnFirstInteraction);
+    document.body.addEventListener('touchstart', enableAudioOnFirstInteraction); // для мобильных
 
     function setupFlipbook() {
       const width = flipbook.width();
@@ -304,17 +299,31 @@
       setTimeout(setupFlipbook, 100);
     });
 
-    // --- ДОБАВЛЕНА ЛОГИКА ДЛЯ ПИШУЩЕЙ МАШИНКИ ---
-    const typewriterPage1 = 17; // Первая страница
-    const typewriterPage2 = 18; // Вторая (новая) страница
+    const typewriterPage1 = 17;
+    const typewriterPage2 = 18;
 
+    // *** ИЗМЕНЕНИЕ 2: Обновленный обработчик 'turned' ***
     flipbook.on('turned', function (event, page, view) {
-      // Запускаем первую анимацию
+      const video = document.getElementById('page-video');
+
+      // Логика для управления видео
+      if (video) {
+        if (page === 2) {
+          // Когда мы на странице 2, включаем видео
+          video.play().catch(error => {
+            console.error("Video autoplay failed:", error);
+          });
+        } else {
+          // На всех других страницах ставим видео на паузу
+          video.pause();
+        }
+      }
+
+      // Логика для пишущей машинки (остается без изменений)
       if (page === typewriterPage1 && !typewriter1Started) {
         startTypewriter1();
         typewriter1Started = true;
       }
-      // Запускаем вторую анимацию
       if (page === typewriterPage2 && !typewriter2Started) {
         startTypewriter2();
         typewriter2Started = true;
@@ -332,7 +341,6 @@
 
   // --- Функция для ВТОРОЙ пишущей машинки ---
   function startTypewriter2() {
-    // !!! ЗАМЕНИТЕ ЭТОТ ТЕКСТ НА СВОЙ !!!
     const text = `Я не всегда попадаю онлайн в Telegram.\nно это вовсе не значит, что я не думаю о тебе.\nМоя улыбка появляется каждый раз,\nкогда я слышу твои голос.\nА сердце начинает сильно стучать,\nкогда я вижу тебя.\nМои чувства к тебе не утихли…\nОни стали только сильнее. 💙\n`;
     const textContainer = document.getElementById("typewriter-text2");
     const cursor = document.getElementById("typewriter-cursor2");
