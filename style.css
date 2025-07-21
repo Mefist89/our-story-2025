@@ -12,8 +12,9 @@
 }
 
 body {
-    display: grid;
-    place-content: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     height: 100vh;
     width: 100vw;
     background: linear-gradient(to bottom, #0b0c10, #1c2833, #3a3a52);
@@ -189,7 +190,7 @@ body {
 
 .page-text-top h1 {
     font-family: 'Poppins', sans-serif;
-    font-size: 24px;
+    font-size: 22px;
     font-weight: 600;
     color: #3D4852;
     text-shadow: none;
@@ -241,7 +242,7 @@ body {
 /* --- НОВЫЙ СТИЛЬ: для заголовка <h1> --- */
 .page-text-bottom h1 {
     font-family: 'Poppins', sans-serif; /* Используем стандартный, чистый шрифт */
-    font-size: 26px; /* Делаем заголовок крупным */
+    font-size: 22px; /* Делаем заголовок крупным */
     font-weight: 600;
     color: #3D4852;
     margin-top: 5px; /* Небольшой отступ сверху */
