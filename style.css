@@ -411,7 +411,7 @@ body {
 
 /* --- НОВЫЙ СТИЛЬ: Убираем фон у .page-text-bottom для вложенного .page-auto --- */
 .page-text-bottom.page-auto,
-.page-text-bottom.page-auto.flex-center-col {
+.page-text-bottom.page-auto2 {
     background: transparent !important;
     border: none !important;
     overflow: visible !important;
